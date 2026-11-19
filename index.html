@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="ru"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Каталог техники</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0E0F12;
+    --surface: #16181D;
+    --surface-2: #1D2027;
+    --border: #272B34;
+    --green: #2ECC71;
+    --green-soft: #3DDC84;
+    --green-dim: rgba(46, 204, 113, 0.14);
+    --text: #F2F4F5;
+    --muted: #8D95A1;
+    --shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: 'Manrope', 'Inter', system-ui, sans-serif;
+    color: var(--text);
+    line-height: 1.5;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 85% 0%, rgba(46, 204, 113, 0.10), transparent 40%),
+      radial-gradient(circle at 0% 100%, rgba(46, 204, 113, 0.06), transparent 40%),
+      var(--bg);
+  }
+
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 32px 20px 48px; }
+
+  .card, .product-card, .hero, footer {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+  }
+
+  .card { padding: 28px; margin-bottom: 32px; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(120deg, #16181D 0%, #112318 100%);
+    padding: 48px 40px;
+    margin-bottom: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .hero h1 { margin: 0 0 10px; font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; }
+  .hero h1 span { color: var(--green); }
+  .hero p { margin: 0; color: var(--muted); font-size: 1.05rem; }
+  .hero .date {
+    margin-top: 14px; display: inline-block; padding: 6px 14px; border-radius: 999px;
+    background: var(--green-dim); color: var(--green-soft); font-size: 0.9rem; font-weight: 600;
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--green); color: #04140B; border: none; border-radius: 999px;
+    padding: 12px 22px; font-family: inherit; font-size: 0.95rem; font-weight: 700;
+    cursor: pointer; text-decoration: none;
+    transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 16px rgba(46, 204, 113, 0.25);
+  }
+  .btn:hover { background: var(--green-soft); transform: translateY(-1px); box-shadow: 0 8px 22px rgba(46, 204, 113, 0.35); }
+  .btn-small { padding: 8px 14px; font-size: 0.85rem; }
+
+  /* SECTIONS */
+  .section-title { font-size: 1.5rem; font-weight: 800; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .section-sub { margin: 0 0 22px; color: var(--muted); font-size: 0.95rem; }
+
+  /* TABLE */
+  .table-wrap { overflow-x: auto; border-radius: 16px; border: 1px solid var(--border); background: var(--surface-2); }
+  table.catalog { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 900px; }
+  table.catalog th {
+    background: #121419; text-align: center; font-weight: 700; font-size: 0.9rem;
+    padding: 16px 12px; color: var(--green-soft); border-bottom: 1px solid var(--border);
+  }
+  table.catalog td {
+    padding: 14px 12px; text-align: center; border-top: 1px solid var(--border);
+    vertical-align: middle; font-size: 0.95rem;
+  }
+  table.catalog tbody tr:hover { background: #23272F; }
+  table.catalog td.left { text-align: left; }
+  table.catalog td.num { font-weight: 700; color: var(--muted); }
+  table.catalog td.model { font-weight: 700; }
+  table.catalog td.brand { font-weight: 600; }
+  table.catalog td.price { font-weight: 700; white-space: nowrap; }
+  table.catalog td.disc { font-weight: 700; color: var(--green-soft); white-space: nowrap; }
+  table.catalog tr.total td {
+    background: var(--green-dim); font-weight: 800; border-top: 2px solid var(--green);
+    font-size: 1rem; color: var(--text); white-space: nowrap;
+  }
+  .dash { color: #4A515E; }
+
+  .photo-placeholder {
+    width: 80px; height: 80px; margin: 0 auto; border-radius: 16px;
+    background: linear-gradient(135deg, #24282F, #1A1D23); border: 1px dashed #353B47;
+    color: var(--muted); display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; font-weight: 600; overflow: hidden;
+  }
+  .photo-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* CARDS */
+  .product-grid { display: grid; grid-template-columns: 1fr; gap: 28px; }
+  .product-card { padding: 28px; break-inside: avoid; }
+  .product-head { display: grid; grid-template-columns: 200px 1fr; gap: 28px; align-items: start; margin-bottom: 24px; }
+  .product-head .photo-placeholder { width: 200px; height: 200px; border-radius: 20px; margin: 0; font-size: 1rem; }
+  .badge {
+    display: inline-block; padding: 6px 14px; border-radius: 999px; font-size: 0.85rem;
+    font-weight: 700; margin-bottom: 10px; background: var(--green-dim); color: var(--green-soft);
+  }
+  .product-brand { font-size: 0.95rem; font-weight: 700; color: var(--muted); margin: 0; }
+  .product-model { font-size: 1.6rem; font-weight: 800; margin: 4px 0 10px; letter-spacing: -0.01em; word-break: break-word; }
+  .product-price { margin: 0 0 14px; font-size: 1.25rem; font-weight: 800; }
+  .product-price small { font-size: 0.9rem; font-weight: 700; color: var(--green-soft); margin-left: 10px; }
+  .product-desc { color: var(--muted); margin: 0 0 16px; }
+  .spec-title {
+    font-size: 1.05rem; font-weight: 700; margin: 0 0 14px; padding-top: 18px;
+    border-top: 1px dashed var(--border); color: var(--green-soft);
+  }
+  .specs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 24px; }
+  .spec {
+    display: flex; flex-direction: column; gap: 2px; padding: 10px 14px; border-radius: 12px;
+    background: var(--surface-2); border: 1px solid var(--border);
+  }
+  .spec .k { font-size: 0.8rem; color: var(--muted); font-weight: 600; }
+  .spec .v { font-size: 0.92rem; font-weight: 600; word-break: break-word; }
+
+  /* FOOTER */
+  footer { margin-top: 40px; padding: 24px 28px; text-align: center; color: var(--muted); font-size: 0.95rem; }
+  footer span { display: inline-block; margin: 4px 14px; }
+
+  @media (min-width: 900px) { .product-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 700px) {
+    .hero { padding: 32px 24px; }
+    .card, .product-card { padding: 20px; }
+    .product-head { grid-template-columns: 1fr; }
+    .product-head .photo-placeholder { width: 100%; height: 180px; }
+    .specs { grid-template-columns: 1fr; }
+  }
+
+  @media print {
+    @page { margin: 12mm; }
+    body { background: #fff !important; color: #000; }
+    .no-print, .btn { display: none !important; }
+    .wrap { padding: 0; max-width: none; }
+    .hero, .card, .product-card, footer, .table-wrap {
+      box-shadow: none !important; background: #fff !important; border: 1px solid #ccc !important;
+    }
+    .hero h1 span, .badge, .spec-title, table.catalog td.disc, table.catalog th { color: #000 !important; }
+    table.catalog th, table.catalog tr.total td {
+      background: #E8F8EF !important; -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    }
+    .photo-placeholder { background: #F2F2F2 !important; color: #555 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .spec { background: #fff !important; }
+    .product-card { page-break-inside: avoid; margin-bottom: 14px; }
+    .product-grid { display: block; }
+    .card { margin-bottom: 16px; padding: 12px; }
+    table.catalog { min-width: 0; }
+  }
+</style>
+
+<meta name="generator" content="Free Visual HTML Editor">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div>
+      <h1><span><font color="#f2f4f5">Своя&nbsp;</font>техника</span></h1>
+      <p>Встраиваемая техника для кухни</p>
+      <span class="date">&nbsp;19 ноября 2026</span></div>
+  </header>
+
+  <!-- СВОДНАЯ ТАБЛИЦА -->
+  <section class="card">
+    <h2 class="section-title">💡 Сводная таблица</h2>
+    <p class="section-sub">Цены РРЦ актуальны на дату формирования каталога.</p><div class="table-wrap"><table class="catalog">
+        <thead>
+          <tr>
+            <th>№</th>
+            <th>Фото</th>
+            <th>Бренд</th>
+            <th>Модель</th>
+            <th><br></th>
+            <th>Цена РРЦ, ₽</th>
+            <th>Цена со скидкой, ₽</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="num">1</td><td><div class="photo-placeholder"><img src="https://ru.asko.com/upload/iblock/972/lu5tovuj75npr2g6p2cblbhvuqzj66hu.png" alt="Встраиваемый комбинированный холодильник" class=""></div></td>
+            <td class="brand left">Asko</td>
+            <td class="model left">RBC297SND1</td><td></td>
+            <td class="price">169 900 ₽</td>
+            <td class="disc"><span style="color: rgb(242, 244, 245)">144 000&nbsp; ₽</span></td>
+          </tr>
+          <tr>
+            <td class="num">2</td>
+            <td><div class="photo-placeholder"><img src="https://i.oneme.ru/i?r=B09HQN0Qr3SEKX3_pN373_Kz6S-USzoT344Ly2bKgfpk9tZ6AfBR0v68QabkF3yu0ahFxkoMG1aQi9BVHjTNRfiCXZ9M7sXJDGlP4fm6UHU&amp;expires=1795191813210" class=""></div></td>
+            <td class="brand left">Smeg</td>
+            <td class="model left">FMI025B3</td>
+            <td><br></td>
+            <td class="price">41 990 ₽</td>
+            <td class="disc"><span style="color: rgb(242, 244, 245); background-color: rgb(35, 39, 47)">35 500 ₽</span></td>
+          </tr>
+          <tr>
+            <td class="num">3</td>
+            <td><div class="photo-placeholder"><img src="https://i.oneme.ru/i?r=B09HQN0Qr3SEKX3_pN3IFUYcBal8iSsMB6z9P9eVtOvs3hbXoAoLZpPLnE5aAbnQqlI3OC6VkJIAyRbAGL-zuJHaLQmVWtN5mR3pQ4TPM5w&amp;expires=1795175392881"></div></td>
+            <td class="brand left">Smeg</td>
+            <td class="model left"><span style="font-family: -apple-system, BlinkMacSystemFont, Roboto, system-ui, Avenir, Helvetica, Arial, sans-serif; font-size: 16px; white-space: pre-wrap; background-color: rgb(29, 32, 39)"><font color="#ffffff" style="">SFP6201TB</font></span></td>
+            <td><br></td>
+            <td class="price">109 990 ₽</td>
+            <td class="disc"><span style="color: rgb(242, 244, 245); background-color: rgb(35, 39, 47)">93 000 ₽</span></td>
+          </tr>
+          <tr>
+            <td class="num">4</td>
+            <td><div class="photo-placeholder"><img src="https://i.oneme.ru/i?r=B09HQN0Qr3SEKX3_pN2HWs6XVb8RYq3gSXY8ZYTa0k8rFDinBvCFJ2IQiboI5-2NA6d3xlBtEWFAvFObKunlMai_UGEItkHZKUOck8U98rs&amp;expires=1795191935939"></div></td>
+            <td class="brand left"><span style="background-color: rgb(29, 32, 39)">Smeg</span></td>
+            <td class="model left"><span style="font-family: -apple-system, BlinkMacSystemFont, Roboto, system-ui, Avenir, Helvetica, Arial, sans-serif; font-size: 16px; white-space: pre-wrap; background-color: rgb(29, 32, 39)"><font color="#ffffff">SI2M5643D1</font></span></td>
+            <td><br></td>
+            <td class="price">104 990 ₽</td>
+            <td class="disc"><span style="color: rgb(242, 244, 245)">89 000 ₽</span></td>
+          </tr>
+          <tr>
+            <td class="num">5</td>
+            <td><div class="photo-placeholder"><img src="https://i.oneme.ru/i?r=B09HQN0Qr3SEKX3_pN0dBKrCa6iLEKqZkG2u16IhNWlMQSsLQfhcXbw4Ru6X6jJHjj-JzQSe9BGxdWFHztaxYpNMkPolkEdOl2vpf9nfE4I&amp;expires=1795186827842"></div></td>
+            <td class="brand left"><span style="background-color: rgb(29, 32, 39)">Smeg</span></td>
+            <td class="model left"><span style="font-family: -apple-system, BlinkMacSystemFont, Roboto, system-ui, Avenir, Helvetica, Arial, sans-serif; font-size: 16px; white-space: pre-wrap; background-color: rgb(29, 32, 39)"><font color="#ffffff">STL362DQ</font></span></td>
+            <td><br></td>
+            <td class="price">79 990 ₽</td>
+            <td class="disc"><span style="color: rgb(242, 244, 245)">67 900 ₽</span></td>
+          </tr>
+          <tr>
+            <td class="num">6</td>
+            <td><div class="photo-placeholder"><img src="https://i.oneme.ru/i?r=B09HQN0Qr3SEKX3_pN1WF4hHHtRWokoA58-wNpVt-IZvmKHpHqi0kYMcqJSWCUA-neL1j4wgHCA84eH23qHiqAnx2HweAl_-04OgHSKncsQ&amp;expires=1795193487436"></div></td>
+            <td class="brand left">Asko</td>
+            <td class="model left"><span style="font-family: -apple-system, BlinkMacSystemFont, Roboto, system-ui, Avenir, Helvetica, Arial, sans-serif; font-size: 16px; white-space: pre-wrap; background-color: rgb(29, 32, 39)"><font color="#ffffff">W5096RT</font></span></td>
+            <td><br></td>
+            <td class="price">206 990 ₽</td>
+            <td class="disc"><span style="color: rgb(242, 244, 245); background-color: rgb(35, 39, 47)">175 900 ₽</span></td>
+          </tr>
+          <tr>
+            <td class="num">7</td>
+            <td><div class="photo-placeholder"><img src="https://i.oneme.ru/i?r=B09HQN0Qr3SEKX3_pN18E3-7Ssddas4auP2sj1XyKdzsrOYppBz2k2cbC_2Jd7-kx1rYaG5bl_ApeiOZi68x-Q3oFSmraIjE53pXypXhuPg&amp;expires=1795188257072"></div></td>
+            <td class="brand left">Asko</td>
+            <td class="model left"><span style="font-family: -apple-system, BlinkMacSystemFont, Roboto, system-ui, Avenir, Helvetica, Arial, sans-serif; font-size: 16px; white-space: pre-wrap; background-color: rgb(29, 32, 39);"><font color="#ffffff" style="">T509HRT</font></span></td><td></td>
+            <td class="price">178 900 ₽</td>
+            <td class="disc"><span style="color: rgb(242, 244, 245)">152 000 ₽</span></td>
+          </tr>
+          <tr>
+            <td class="num"><br></td><td></td>
+            <td class="brand left"><br></td><td class="model left"></td><td></td><td class="price"></td><td class="disc"></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="total">
+            <td colspan="5" style="text-align:left;">ИТОГО</td><td>892 750&nbsp;<span style="font-size: 15.2px; background-color: rgb(29, 32, 39);">₽</span></td>
+            <td>757 300&nbsp;<span style="font-size: 15.2px; background-color: rgb(29, 32, 39);">₽</span></td>
+          </tr>
+        </tfoot>
+      </table></div></section><section><div class="product-grid">
+
+    </div>
+  </section>
+
+  <footer><span>🌿 Цены РРЦ актуальны на дату формирования каталога</span>
+  </footer>
+
+</div>
+
+
+<div id="fvhe-watermark" style="position:fixed!important;bottom:0!important;left:0!important;right:0!important;background:linear-gradient(90deg,#0d1520,#112040)!important;border-top:1px solid rgba(10,167,255,.45)!important;padding:8px 20px!important;text-align:center!important;font:500 12px/1.4 system-ui,-apple-system,Segoe UI,sans-serif!important;color:rgba(230,240,255,.75)!important;z-index:2147483647!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:10px!important"><span style="color:#0aa7ff;font-size:16px">✏️</span><span>Edited with <strong style="color:#4dc8ff">Free Visual HTML Editor</strong></span><span style="opacity:.35">|</span><a href="https://onlinegratis.net/buy/free-html-editor.php?src=watermark" target="_blank" rel="noopener" style="color:#f5b432;text-decoration:none;font-weight:700">⭐ Upgrade to PRO</a></div>
+</body></html>
